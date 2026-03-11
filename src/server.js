@@ -25,23 +25,28 @@ app.get("/calculator", (req, res) => {
 
   let result;
 
-  if (operation === "add") {
-    result = add(num1, num2);
-  } else if (operation === "subtract") {
-    result = subtract(num1, num2);
-  } else if (operation === "multiply") {
-    result = multiply(num1, num2);
-  } else if (operation === "divide") {
-    if (num2 === 0) {
-      return res.status(400).send("Error: Division by zero is not allowed.");
-    }
-    result = divide(num1, num2);
-  } else {
-    return res
-      .status(400)
-      .send(
-        "Error: Please specify 'add', 'subtract', 'multiply', or 'divide' for the operation.",
-      );
+  switch (operation) {
+    case "add":
+      result = add(num1, num2);
+      break;
+    case "subtract":
+      result = subtract(num1, num2);
+      break;
+    case "multiply":
+      result = multiply(num1, num2);
+      break;
+    case "divide":
+      if (num2 === 0) {
+        return res.status(400).send("Error: Division by zero is not allowed.");
+      }
+      result = divide(num1, num2);
+      break;
+    default:
+      return res
+        .status(400)
+        .send(
+          "Error: Please specify 'add', 'subtract', 'multiply', or 'divide' for the operation.",
+        );
   }
 
   res.send(`Result: ${result}`);
